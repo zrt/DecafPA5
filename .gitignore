@@ -1,0 +1,7 @@
+*.DS_Store
+result/
+src/decaf/frontend/Parser.java
+src/decaf/frontend/Lexer.java
+src/decaf/frontend/Parser.output
+
+
