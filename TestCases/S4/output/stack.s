@@ -194,16 +194,16 @@ _Stack.Pop:                             # function entry
           move $fp, $sp                 
           addiu $sp, $sp, -24           
 _L35:                                   
-          lw    $t2, 4($fp)             
-          lw    $t1, 8($t2)             
-          lw    $t0, 4($t2)             
-          li    $t3, 1                  
-          sub   $t3, $t0, $t3           
-          lw    $t0, -4($t1)            
-          slt   $t0, $t3, $t0           
-          sw    $t3, -12($fp)           
-          sw    $t2, 4($fp)             
-          sw    $t1, -8($fp)            
+          lw    $t3, 4($fp)             
+          lw    $t2, 8($t3)             
+          lw    $t1, 4($t3)             
+          li    $t0, 1                  
+          sub   $t1, $t1, $t0           
+          lw    $t0, -4($t2)            
+          slt   $t0, $t1, $t0           
+          sw    $t1, -12($fp)           
+          sw    $t3, 4($fp)             
+          sw    $t2, -8($fp)            
           beqz  $t0, _L37               
 _L36:                                   
           lw    $t1, -12($fp)           
@@ -218,20 +218,20 @@ _L37:
           jal   _Halt                   
 _L38:                                   
           lw    $t1, -12($fp)           
-          lw    $t0, -8($fp)            
-          lw    $t2, 4($fp)             
-          li    $t3, 4                  
-          mul   $t1, $t1, $t3           
-          add   $t0, $t0, $t1           
+          lw    $t2, -8($fp)            
+          lw    $t3, 4($fp)             
+          li    $t0, 4                  
+          mul   $t0, $t1, $t0           
+          add   $t0, $t2, $t0           
           lw    $t0, 0($t0)             
-          move  $t1, $t0                
-          lw    $t0, 4($t2)             
-          lw    $t3, 4($t2)             
+          move  $t2, $t0                
+          lw    $t0, 4($t3)             
+          lw    $t1, 4($t3)             
           li    $t0, 1                  
-          sub   $t0, $t3, $t0           
-          sw    $t0, 4($t2)             
-          sw    $t2, 4($fp)             
-          move  $v0, $t1                
+          sub   $t0, $t1, $t0           
+          sw    $t0, 4($t3)             
+          sw    $t3, 4($fp)             
+          move  $v0, $t2                
           move  $sp, $fp                
           lw    $ra, -4($fp)            
           lw    $fp, 0($fp)             

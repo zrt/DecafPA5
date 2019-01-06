@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.TreeSet;
 
 import decaf.Driver;
 import decaf.dataflow.BasicBlock;
@@ -25,16 +26,25 @@ public class GraphColorRegisterAllocator implements RegisterAllocator {
 
 	private Temp fp;
 
+	private InferenceGraph ig;
+
 	public GraphColorRegisterAllocator(Temp fp, CallingConv callingConv,
 			Register[] regs) {
 		this.fp = fp;
 		this.callingConv = callingConv;
 		this.regs = regs;
+		this.ig = new InferenceGraph();
 	}
 
 	public void alloc(BasicBlock bb) {
 		this.bb = bb;
 		clear();
+		for(Temp t: bb.liveUse){
+			load(bb.tacList, t);
+			bb.tacList.liveOut = new TreeSet<Temp>(Temp.ID_COMPARATOR);
+			bb.tacList.liveOut.addAll(bb.liveUse);
+		}
+		ig.alloc(this.bb, this.regs, this.fp.reg);
 
 		// Use InferenceGraph to do basicblock-wise register allocation here.
 		// But before that, you have to do something.
@@ -135,9 +145,10 @@ public class GraphColorRegisterAllocator implements RegisterAllocator {
 	}
 
 	private void load(Tac tac, Temp temp) {
-		if (!temp.isOffsetFixed())
+		if (!temp.isOffsetFixed()){
 			throw new IllegalArgumentException(bb.var +
 					" may used before define during register allocation");
+		}
 		Tac load = Tac.genLoad(temp, fp, Temp.createConstTemp(temp.offset));
 		bb.insertBefore(load, tac);
 	}

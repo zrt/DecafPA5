@@ -628,17 +628,17 @@ _L209:
           jal   _PrintString            
           jal   _Halt                   
 _L210:                                  
-          lw    $t3, -44($fp)           
-          lw    $t2, -28($fp)           
+          lw    $t2, -44($fp)           
+          lw    $t3, -28($fp)           
           lw    $t1, -16($fp)           
           li    $t0, 4                  
           mul   $t0, $t1, $t0           
-          add   $t0, $t3, $t0           
+          add   $t0, $t2, $t0           
           lw    $t0, 0($t0)             
           li    $t0, 4                  
           mul   $t0, $t1, $t0           
-          add   $t0, $t3, $t0           
-          sw    $t2, 0($t0)             
+          add   $t0, $t2, $t0           
+          sw    $t3, 0($t0)             
           b     _L197                   
 _L211:                                  
           move  $sp, $fp                
@@ -687,12 +687,12 @@ _L216:
           jal   _PrintString            
           jal   _Halt                   
 _L217:                                  
-          lw    $t0, -12($fp)           
-          lw    $t2, -8($fp)            
+          lw    $t2, -12($fp)           
+          lw    $t3, -8($fp)            
           lw    $t1, 4($fp)             
-          li    $t3, 4                  
-          mul   $t0, $t0, $t3           
-          add   $t0, $t2, $t0           
+          li    $t0, 4                  
+          mul   $t0, $t2, $t0           
+          add   $t0, $t3, $t0           
           lw    $t0, 0($t0)             
           move  $t3, $t0                
           lw    $t0, 4($t1)             
@@ -837,23 +837,23 @@ _L231:
           jal   _PrintString            
           jal   _Halt                   
 _L232:                                  
-          lw    $t3, -36($fp)           
+          lw    $t2, -36($fp)           
           lw    $t0, -28($fp)           
-          lw    $t2, 8($fp)             
+          lw    $t3, 8($fp)             
           li    $t1, 4                  
           mul   $t1, $t0, $t1           
-          add   $t1, $t3, $t1           
+          add   $t1, $t2, $t1           
           lw    $t1, 0($t1)             
           sw    $t1, 4($sp)             
-          sw    $t2, 8($sp)             
+          sw    $t3, 8($sp)             
           lw    $t1, 0($t1)             
           lw    $t1, 8($t1)             
-          sw    $t2, 8($fp)             
+          sw    $t3, 8($fp)             
           sw    $t0, -28($fp)           
           jalr  $t1                     
-          lw    $t2, 8($fp)             
+          lw    $t3, 8($fp)             
           lw    $t0, -28($fp)           
-          sw    $t2, 8($fp)             
+          sw    $t3, 8($fp)             
           sw    $t0, -28($fp)           
 _L224:                                  
           lw    $t0, -28($fp)           
@@ -915,19 +915,20 @@ _L237:
           jalr  $t0                     
           move  $t0, $v0                
           lw    $t1, 4($fp)             
-          lw    $t3, 4($t1)             
-          lw    $t2, -4($t3)            
-          slt   $t2, $t0, $t2           
-          sw    $t3, -16($fp)           
+          move  $t3, $t0                
+          lw    $t2, 4($t1)             
+          lw    $t0, -4($t2)            
+          slt   $t0, $t3, $t0           
+          sw    $t2, -16($fp)           
           sw    $t1, 4($fp)             
-          sw    $t0, -12($fp)           
-          beqz  $t2, _L239              
+          sw    $t3, -12($fp)           
+          beqz  $t0, _L239              
 _L238:                                  
-          lw    $t0, -12($fp)           
-          li    $t1, 0                  
-          slt   $t1, $t0, $t1           
-          sw    $t0, -12($fp)           
-          beqz  $t1, _L240              
+          lw    $t1, -12($fp)           
+          li    $t0, 0                  
+          slt   $t0, $t1, $t0           
+          sw    $t1, -12($fp)           
+          beqz  $t0, _L240              
 _L239:                                  
           la    $t0, _STRING8           
           sw    $t0, 4($sp)             
@@ -935,9 +936,9 @@ _L239:
           jal   _Halt                   
 _L240:                                  
           lw    $t2, -16($fp)           
-          lw    $t0, -12($fp)           
-          li    $t1, 4                  
-          mul   $t0, $t0, $t1           
+          lw    $t1, -12($fp)           
+          li    $t0, 4                  
+          mul   $t0, $t1, $t0           
           add   $t0, $t2, $t0           
           lw    $t0, 0($t0)             
           sw    $t0, 4($sp)             
@@ -1000,14 +1001,14 @@ _L248:
           beqz  $t1, _L253              
 _L249:                                  
           lw    $t0, -8($fp)            
-          lw    $t1, 4($fp)             
-          lw    $t3, 4($t1)             
-          lw    $t2, -4($t3)            
-          slt   $t2, $t0, $t2           
-          sw    $t3, -12($fp)           
-          sw    $t1, 4($fp)             
+          lw    $t3, 4($fp)             
+          lw    $t2, 4($t3)             
+          lw    $t1, -4($t2)            
+          slt   $t1, $t0, $t1           
+          sw    $t2, -12($fp)           
+          sw    $t3, 4($fp)             
           sw    $t0, -8($fp)            
-          beqz  $t2, _L251              
+          beqz  $t1, _L251              
 _L250:                                  
           lw    $t0, -8($fp)            
           li    $t1, 0                  
@@ -1196,29 +1197,29 @@ _L257:
           sw    $t0, 8($t2)             
           sw    $t2, 4($fp)             
 _L258:                                  
-          lw    $t2, 4($fp)             
-          lw    $t1, 4($t2)             
-          li    $t0, 21                 
-          sgt   $t3, $t1, $t0           
-          lw    $t1, 8($t2)             
-          li    $t0, 0                  
-          sgt   $t0, $t1, $t0           
-          and   $t0, $t3, $t0           
-          sw    $t2, 4($fp)             
-          beqz  $t0, _L260              
+          lw    $t0, 4($fp)             
+          lw    $t2, 4($t0)             
+          li    $t1, 21                 
+          sgt   $t3, $t2, $t1           
+          lw    $t2, 8($t0)             
+          li    $t1, 0                  
+          sgt   $t1, $t2, $t1           
+          and   $t1, $t3, $t1           
+          sw    $t0, 4($fp)             
+          beqz  $t1, _L260              
 _L259:                                  
-          lw    $t2, 4($fp)             
-          lw    $t0, 4($t2)             
-          lw    $t1, 4($t2)             
-          li    $t0, 10                 
-          sub   $t0, $t1, $t0           
-          sw    $t0, 4($t2)             
-          lw    $t0, 8($t2)             
-          lw    $t1, 8($t2)             
-          li    $t0, 1                  
-          sub   $t0, $t1, $t0           
-          sw    $t0, 8($t2)             
-          sw    $t2, 4($fp)             
+          lw    $t0, 4($fp)             
+          lw    $t1, 4($t0)             
+          lw    $t2, 4($t0)             
+          li    $t1, 10                 
+          sub   $t1, $t2, $t1           
+          sw    $t1, 4($t0)             
+          lw    $t1, 8($t0)             
+          lw    $t2, 8($t0)             
+          li    $t1, 1                  
+          sub   $t1, $t2, $t1           
+          sw    $t1, 8($t0)             
+          sw    $t0, 4($fp)             
           b     _L258                   
 _L260:                                  
           move  $sp, $fp                
@@ -1440,78 +1441,78 @@ _L270:
           sw    $t0, -8($fp)            
           beqz  $t0, _L269              
 _L271:                                  
-          lw    $t2, 8($fp)             
+          lw    $t0, 8($fp)             
           lw    $t1, 4($fp)             
           sw    $t1, 4($sp)             
-          sw    $t2, 8($sp)             
-          lw    $t0, 0($t1)             
-          lw    $t0, 12($t0)            
+          sw    $t0, 8($sp)             
+          lw    $t2, 0($t1)             
+          lw    $t2, 12($t2)            
           sw    $t1, 4($fp)             
-          sw    $t2, 8($fp)             
-          jalr  $t0                     
+          sw    $t0, 8($fp)             
+          jalr  $t2                     
           lw    $t1, 4($fp)             
-          lw    $t2, 8($fp)             
+          lw    $t0, 8($fp)             
           sw    $t1, 4($fp)             
-          sw    $t2, 8($fp)             
+          sw    $t0, 8($fp)             
           b     _L269                   
 _L272:                                  
-          lw    $t1, 4($fp)             
-          lw    $t2, 4($t1)             
-          li    $t0, 21                 
-          sgt   $t0, $t2, $t0           
-          sw    $t1, 4($fp)             
-          beqz  $t0, _L274              
+          lw    $t0, 4($fp)             
+          lw    $t2, 4($t0)             
+          li    $t1, 21                 
+          sgt   $t1, $t2, $t1           
+          sw    $t0, 4($fp)             
+          beqz  $t1, _L274              
 _L273:                                  
-          lw    $t1, 4($fp)             
-          lw    $t0, 24($t1)            
-          sw    $t0, 4($sp)             
-          sw    $t1, 4($fp)             
+          lw    $t0, 4($fp)             
+          lw    $t1, 24($t0)            
+          sw    $t1, 4($sp)             
+          sw    $t0, 4($fp)             
           jal   _PrintString            
-          lw    $t1, 4($fp)             
-          la    $t0, _STRING20          
-          sw    $t0, 4($sp)             
-          sw    $t1, 4($fp)             
+          lw    $t0, 4($fp)             
+          la    $t1, _STRING20          
+          sw    $t1, 4($sp)             
+          sw    $t0, 4($fp)             
           jal   _PrintString            
-          lw    $t1, 4($fp)             
-          lw    $t0, 4($t1)             
-          sw    $t0, 4($sp)             
-          sw    $t1, 4($fp)             
+          lw    $t0, 4($fp)             
+          lw    $t1, 4($t0)             
+          sw    $t1, 4($sp)             
+          sw    $t0, 4($fp)             
           jal   _PrintInt               
-          lw    $t1, 4($fp)             
-          la    $t0, _STRING21          
-          sw    $t0, 4($sp)             
-          sw    $t1, 4($fp)             
+          lw    $t0, 4($fp)             
+          la    $t1, _STRING21          
+          sw    $t1, 4($sp)             
+          sw    $t0, 4($fp)             
           jal   _PrintString            
-          lw    $t1, 4($fp)             
-          sw    $t1, 4($fp)             
+          lw    $t0, 4($fp)             
+          sw    $t0, 4($fp)             
 _L275:                                  
           move  $sp, $fp                
           lw    $ra, -4($fp)            
           lw    $fp, 0($fp)             
           jr    $ra                     
 _L274:                                  
-          lw    $t1, 4($fp)             
-          lw    $t0, 24($t1)            
-          sw    $t0, 4($sp)             
-          sw    $t1, 4($fp)             
+          lw    $t0, 4($fp)             
+          lw    $t1, 24($t0)            
+          sw    $t1, 4($sp)             
+          sw    $t0, 4($fp)             
           jal   _PrintString            
-          lw    $t1, 4($fp)             
-          la    $t0, _STRING22          
-          sw    $t0, 4($sp)             
-          sw    $t1, 4($fp)             
+          lw    $t0, 4($fp)             
+          la    $t1, _STRING22          
+          sw    $t1, 4($sp)             
+          sw    $t0, 4($fp)             
           jal   _PrintString            
-          lw    $t1, 4($fp)             
-          lw    $t0, 4($t1)             
-          sw    $t0, 4($sp)             
-          sw    $t1, 4($fp)             
+          lw    $t0, 4($fp)             
+          lw    $t1, 4($t0)             
+          sw    $t1, 4($sp)             
+          sw    $t0, 4($fp)             
           jal   _PrintInt               
-          lw    $t1, 4($fp)             
-          la    $t0, _STRING14          
-          sw    $t0, 4($sp)             
-          sw    $t1, 4($fp)             
+          lw    $t0, 4($fp)             
+          la    $t1, _STRING14          
+          sw    $t1, 4($sp)             
+          sw    $t0, 4($fp)             
           jal   _PrintString            
-          lw    $t1, 4($fp)             
-          sw    $t1, 4($fp)             
+          lw    $t0, 4($fp)             
+          sw    $t0, 4($fp)             
           b     _L275                   
 
 _Player.HasMoney:                       # function entry
@@ -1619,10 +1620,10 @@ _Player.GetTotal:                       # function entry
           move $fp, $sp                 
           addiu $sp, $sp, -12           
 _L282:                                  
-          lw    $t1, 4($fp)             
-          lw    $t0, 4($t1)             
-          sw    $t1, 4($fp)             
-          move  $v0, $t0                
+          lw    $t0, 4($fp)             
+          lw    $t1, 4($t0)             
+          sw    $t0, 4($fp)             
+          move  $v0, $t1                
           move  $sp, $fp                
           lw    $ra, -4($fp)            
           lw    $fp, 0($fp)             
@@ -1634,22 +1635,22 @@ _Player.Resolve:                        # function entry
           move $fp, $sp                 
           addiu $sp, $sp, -24           
 _L283:                                  
-          lw    $t3, 4($fp)             
-          li    $t0, 0                  
-          move  $t2, $t0                
-          li    $t0, 0                  
-          move  $t1, $t0                
-          lw    $t0, 4($t3)             
-          li    $t4, 21                 
-          seq   $t5, $t0, $t4           
-          lw    $t4, 12($t3)            
-          li    $t0, 2                  
-          seq   $t0, $t4, $t0           
-          and   $t0, $t5, $t0           
-          sw    $t3, 4($fp)             
-          sw    $t2, -8($fp)            
-          sw    $t1, -12($fp)           
-          beqz  $t0, _L285              
+          lw    $t0, 4($fp)             
+          li    $t1, 0                  
+          move  $t5, $t1                
+          li    $t1, 0                  
+          move  $t4, $t1                
+          lw    $t2, 4($t0)             
+          li    $t1, 21                 
+          seq   $t3, $t2, $t1           
+          lw    $t2, 12($t0)            
+          li    $t1, 2                  
+          seq   $t1, $t2, $t1           
+          and   $t1, $t3, $t1           
+          sw    $t0, 4($fp)             
+          sw    $t5, -8($fp)            
+          sw    $t4, -12($fp)           
+          beqz  $t1, _L285              
 _L284:                                  
           li    $t0, 2                  
           sw    $t0, -8($fp)            
@@ -1683,19 +1684,21 @@ _L294:
           lw    $t0, 4($fp)             
           sw    $t0, 4($fp)             
 _L298:                                  
-          lw    $t1, -12($fp)           
-          lw    $t2, -8($fp)            
-          lw    $t0, 4($fp)             
-          lw    $t3, 16($t0)            
-          mul   $t2, $t2, $t3           
-          lw    $t3, 16($t0)            
-          mul   $t1, $t1, $t3           
-          lw    $t3, 20($t0)            
-          lw    $t3, 20($t0)            
-          add   $t2, $t3, $t2           
-          sub   $t1, $t2, $t1           
-          sw    $t1, 20($t0)            
-          sw    $t0, 4($fp)             
+          lw    $t3, -12($fp)           
+          lw    $t0, -8($fp)            
+          lw    $t1, 4($fp)             
+          lw    $t2, 16($t1)            
+          mul   $t2, $t0, $t2           
+          move  $t0, $t2                
+          lw    $t2, 16($t1)            
+          mul   $t2, $t3, $t2           
+          move  $t3, $t2                
+          lw    $t2, 20($t1)            
+          lw    $t2, 20($t1)            
+          add   $t2, $t2, $t0           
+          sub   $t0, $t2, $t3           
+          sw    $t0, 20($t1)            
+          sw    $t1, 4($fp)             
           move  $sp, $fp                
           lw    $ra, -4($fp)            
           lw    $fp, 0($fp)             
@@ -1891,9 +1894,9 @@ _L303:
           b     _L302                   
 _L304:                                  
           lw    $t1, 4($fp)             
-          lw    $t0, 4($t1)             
-          li    $t2, 21                 
-          sgt   $t0, $t0, $t2           
+          lw    $t2, 4($t1)             
+          li    $t0, 21                 
+          sgt   $t0, $t2, $t0           
           sw    $t1, 4($fp)             
           beqz  $t0, _L306              
 _L305:                                  
@@ -2036,47 +2039,48 @@ _House.SetupPlayers:                    # function entry
           move $fp, $sp                 
           addiu $sp, $sp, -52           
 _L309:                                  
-          lw    $t1, 4($fp)             
+          lw    $t2, 4($fp)             
           la    $t0, _STRING32          
           sw    $t0, 4($sp)             
-          sw    $t1, 4($fp)             
+          sw    $t2, 4($fp)             
           jal   _PrintString            
-          lw    $t1, 4($fp)             
-          sw    $t1, 4($fp)             
+          lw    $t2, 4($fp)             
+          sw    $t2, 4($fp)             
           jal   _ReadInteger            
           move  $t0, $v0                
-          lw    $t1, 4($fp)             
-          lw    $t2, 4($t1)             
-          li    $t2, 0                  
-          slt   $t2, $t0, $t2           
-          sw    $t1, 4($fp)             
-          sw    $t0, -8($fp)            
-          beqz  $t2, _L311              
+          lw    $t2, 4($fp)             
+          move  $t1, $t0                
+          lw    $t0, 4($t2)             
+          li    $t0, 0                  
+          slt   $t0, $t1, $t0           
+          sw    $t2, 4($fp)             
+          sw    $t1, -8($fp)            
+          beqz  $t0, _L311              
 _L310:                                  
           la    $t0, _STRING7           
           sw    $t0, 4($sp)             
           jal   _PrintString            
           jal   _Halt                   
 _L311:                                  
-          lw    $t0, -8($fp)            
-          li    $t3, 4                  
-          mul   $t1, $t3, $t0           
-          add   $t2, $t3, $t1           
-          sw    $t2, 4($sp)             
-          sw    $t3, -12($fp)           
-          sw    $t2, -16($fp)           
-          sw    $t0, -8($fp)            
+          lw    $t1, -8($fp)            
+          li    $t4, 4                  
+          mul   $t0, $t4, $t1           
+          add   $t3, $t4, $t0           
+          sw    $t3, 4($sp)             
+          sw    $t4, -12($fp)           
+          sw    $t3, -16($fp)           
+          sw    $t1, -8($fp)            
           jal   _Alloc                  
-          move  $t1, $v0                
-          lw    $t3, -12($fp)           
-          lw    $t2, -16($fp)           
-          lw    $t0, -8($fp)            
-          sw    $t0, 0($t1)             
+          move  $t2, $v0                
+          lw    $t4, -12($fp)           
+          lw    $t3, -16($fp)           
+          lw    $t1, -8($fp)            
+          sw    $t1, 0($t2)             
           li    $t0, 0                  
-          add   $t1, $t1, $t2           
-          sw    $t3, -12($fp)           
-          sw    $t2, -16($fp)           
-          sw    $t1, -20($fp)           
+          add   $t2, $t2, $t3           
+          sw    $t4, -12($fp)           
+          sw    $t3, -16($fp)           
+          sw    $t2, -20($fp)           
           sw    $t0, -24($fp)           
 _L312:                                  
           lw    $t0, -16($fp)           
@@ -2171,11 +2175,11 @@ _L322:
           jal   _PrintString            
           jal   _Halt                   
 _L323:                                  
-          lw    $t1, -36($fp)           
+          lw    $t2, -36($fp)           
           lw    $t0, -28($fp)           
-          li    $t2, 4                  
-          mul   $t2, $t0, $t2           
-          add   $t1, $t1, $t2           
+          li    $t1, 4                  
+          mul   $t1, $t0, $t1           
+          add   $t1, $t2, $t1           
           lw    $t2, 0($t1)             
           li    $t1, 1                  
           add   $t1, $t0, $t1           

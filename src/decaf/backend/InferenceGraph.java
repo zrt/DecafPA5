@@ -65,6 +65,9 @@ class InferenceGraph {
 
 
 	private void addEdge(Temp a, Temp b) {
+	    if(a.equals(b)) return; // 自环
+	    if(neighbours.get(a).contains(b)) return;// 防重边
+        if(neighbours.get(a) == null || neighbours.get(b)==null) return;
 		neighbours.get(a).add(b);
 		neighbours.get(b).add(a);
 		nodeDeg.put(a, nodeDeg.get(a) + 1);
@@ -169,21 +172,46 @@ class InferenceGraph {
 				case ADD: case SUB: case MUL: case DIV: case MOD:
 				case LAND: case LOR: case GTR: case GEQ: case EQU:
 				case NEQ: case LEQ: case LES:
+				    // def op0
+                    for(Temp v: tac.liveOut){
+                        if (!v.equals(tac.op0) && neighbours.containsKey(v))
+                            addEdge(tac.op0, v);
+                    }
+					break;
 
 				case NEG: case LNOT: case ASSIGN:
+                    for(Temp v: tac.liveOut){
+                        addEdge(tac.op0, v);
+                    }
+					break;
 
 				case LOAD_VTBL: case LOAD_IMM4: case LOAD_STR_CONST:
+                    for(Temp v: tac.liveOut){
+                        if (!v.equals(tac.op0) && neighbours.containsKey(v))
+                            addEdge(tac.op0, v);
+                    }
+					break;
 
 				case INDIRECT_CALL:
-
 				case DIRECT_CALL:
-
+				    if(tac.op0 != null){
+                        for(Temp v: tac.liveOut){
+                            if (!v.equals(tac.op0) && neighbours.containsKey(v))
+                                addEdge(tac.op0, v);
+                        }
+                    }
+                    break;
 				case PARM:
+					break;
 
 				case LOAD:
-
-				case STORE:
+                    for(Temp v: tac.liveOut){
+                        if (!v.equals(tac.op0) && neighbours.containsKey(v))
+                            addEdge(tac.op0, v);
+                    }
 					break;
+                case STORE:
+                    break;
 
 				case BRANCH: case BEQZ: case BNEZ: case RETURN:
 					throw new IllegalArgumentException();
